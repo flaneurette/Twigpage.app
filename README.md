@@ -6,7 +6,7 @@ A simple fragments WebView app for twigpage.com. It loads a website inside a app
 
 Scan QR code on mobile phone, and "allow installation from unknown sources." (developer options)
 
-<img src="https://github.com/flaneurette/Twigpage.app/blob/main/frame.png" />
+<img src="https://github.com/flaneurette/Twigpage.app/blob/master/frame.png" />
 
 # JavaScript interface
 
