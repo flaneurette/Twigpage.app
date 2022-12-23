@@ -1,4 +1,4 @@
-# twigpage.app
+# Twigpage.app
 
 A simple fragments WebView app for twigpage.com. It loads a website inside a app. File upload is enabled, as well as JavaScript access.
 
