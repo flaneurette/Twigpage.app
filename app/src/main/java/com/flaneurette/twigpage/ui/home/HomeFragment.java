@@ -13,17 +13,16 @@ import com.flaneurette.twigpage.R;
 import com.flaneurette.twigpage.databinding.FragmentHomeBinding;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
-import android.widget.ProgressBar;
+import com.flaneurette.twigpage.Toaster;
+import com.flaneurette.twigpage.Device;
+import com.flaneurette.twigpage.Progress;
 
 public class HomeFragment extends Fragment {
 
@@ -33,8 +32,6 @@ public class HomeFragment extends Fragment {
     private static final String website = "https://www.twigpage.com/profile";
     private static final String original = "www.twigpage.com/profile";
     private ValueCallback<Uri[]> mFilePathCallback;
-    private ProgressBar progressBar;
-    public boolean shouldOverrideUrlLoading;
     public int status;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -80,65 +77,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    /** The Toaster is called from twigpage.com, inside main.js which triggers a Android dialog */
-
-    public class Toaster {
-
-        Context mContext;
-
-        Toaster(Context c) {
-            mContext = c;
-        }
-
-        @JavascriptInterface
-        public void showToast(String toast) {
-            if(shouldOverrideUrlLoading == false) {
-                Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    public class Progress {
-
-        Context mContext;
-
-        Progress(Context c) {
-            mContext = c;
-        }
-
-        @JavascriptInterface
-        public void uploadSettings(String progress) throws InterruptedException {
-
-            if(shouldOverrideUrlLoading == false) {
-                Toast.makeText(mContext, progress, Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    public class Device {
-
-        Context mContext;
-
-        Device(Context c) {
-            mContext = c;
-        }
-
-        String deviceDensity = null;
-
-        @JavascriptInterface
-        public CharSequence density(String density)  {
-            if(shouldOverrideUrlLoading == false) {
-                if(density == "high") {
-                    deviceDensity = "high";
-                } else {
-                    deviceDensity = "low";
-                }
-            }
-            return deviceDensity;
-        }
-    }
-
-    // File chooser.
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -165,7 +103,6 @@ public class HomeFragment extends Fragment {
             status = progress;
         }
 
-        // For Android 5.0
         public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> filePath, WebChromeClient.FileChooserParams fileChooserParams) {
 
             if (mFilePathCallback != null) {
