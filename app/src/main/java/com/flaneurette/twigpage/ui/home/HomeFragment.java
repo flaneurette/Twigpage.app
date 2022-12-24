@@ -31,7 +31,7 @@ public class HomeFragment extends Fragment {
     private WebView webview;
     private static final int INPUT_FILE_REQUEST_CODE = 1;
     private static final String website = "https://www.twigpage.com/profile";
-    private static final String original = "www.twigpage.com/profile";
+    private static final String original = "www.twigpage.com";
     private ValueCallback<Uri[]> mFilePathCallback;
     public int status;
 

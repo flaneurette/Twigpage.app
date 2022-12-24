@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -34,6 +33,7 @@ public class DashboardFragment extends Fragment {
     private static final String original = "www.twigpage.com";
     private ValueCallback<Uri[]> mFilePathCallback;
     public int status;
+    public boolean overload;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +43,10 @@ public class DashboardFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         WebView webView = (WebView) rootView.findViewById(R.id.webView);
+
+        MyWebViewClient webviewclient = new MyWebViewClient();
+        webviewclient.setOriginal(original);
+        boolean overload = webviewclient.shouldOverrideUrlLoading;
 
         WebSettings webSettings = webView.getSettings();
         webView.setWebViewClient(new WebViewClient());
@@ -57,9 +61,7 @@ public class DashboardFragment extends Fragment {
         webView.addJavascriptInterface(new Progress(root.getContext()), "AndroidProgress");
         webView.addJavascriptInterface(new Device(root.getContext()), "AndroidDevice");
         webView.loadUrl(website);
-        MyWebViewClient webviewclient = new MyWebViewClient();
-        webviewclient.setOriginal(original);
-        boolean overload = webviewclient.shouldOverrideUrlLoading;
+
         return rootView;
 
     }
@@ -111,6 +113,7 @@ public class DashboardFragment extends Fragment {
             return true;
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
