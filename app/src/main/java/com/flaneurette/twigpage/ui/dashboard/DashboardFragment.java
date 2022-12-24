@@ -24,13 +24,14 @@ import com.flaneurette.twigpage.databinding.FragmentDashboardBinding;
 import com.flaneurette.twigpage.Toaster;
 import com.flaneurette.twigpage.Device;
 import com.flaneurette.twigpage.Progress;
+import com.flaneurette.twigpage.MyWebViewClient;
 
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
     private static final int INPUT_FILE_REQUEST_CODE = 1;
     private static final String website = "https://www.twigpage.com/timeline";
-    private static final String original = "www.twigpage.com/timeline";
+    private static final String original = "www.twigpage.com";
     private ValueCallback<Uri[]> mFilePathCallback;
     public int status;
 
@@ -42,6 +43,7 @@ public class DashboardFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         WebView webView = (WebView) rootView.findViewById(R.id.webView);
+
         WebSettings webSettings = webView.getSettings();
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
@@ -55,26 +57,11 @@ public class DashboardFragment extends Fragment {
         webView.addJavascriptInterface(new Progress(root.getContext()), "AndroidProgress");
         webView.addJavascriptInterface(new Device(root.getContext()), "AndroidDevice");
         webView.loadUrl(website);
-
+        MyWebViewClient webviewclient = new MyWebViewClient();
+        webviewclient.setOriginal(original);
+        boolean overload = webviewclient.shouldOverrideUrlLoading;
         return rootView;
 
-    }
-
-    private class MyWebViewClient extends WebViewClient {
-
-        public int status(WebView view, WebResourceRequest request) {
-            return status;
-        }
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            if (original.equals(request.getUrl().getHost())) {
-                return false;
-            }
-            Intent intent = new Intent(Intent.ACTION_VIEW, request.getUrl());
-            startActivity(intent);
-            return true;
-        }
     }
 
     @Override
@@ -124,7 +111,6 @@ public class DashboardFragment extends Fragment {
             return true;
         }
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

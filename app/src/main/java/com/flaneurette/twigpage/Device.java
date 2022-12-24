@@ -2,10 +2,11 @@ package com.flaneurette.twigpage;
 
 import android.content.Context;
 import android.webkit.JavascriptInterface;
+import com.flaneurette.twigpage.MyWebViewClient;
 
 public class Device {
 
-    public boolean shouldOverrideUrlLoading;
+    public boolean urlOverload = new MyWebViewClient().shouldOverrideUrlLoading;
 
     Context mContext;
 
@@ -17,7 +18,7 @@ public class Device {
 
     @JavascriptInterface
     public CharSequence density(String density)  {
-        if(shouldOverrideUrlLoading == false) {
+        if(urlOverload == false) {
             if(density == "high") {
                 deviceDensity = "high";
             } else {

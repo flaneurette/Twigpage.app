@@ -23,6 +23,7 @@ import android.webkit.WebViewClient;
 import com.flaneurette.twigpage.Toaster;
 import com.flaneurette.twigpage.Device;
 import com.flaneurette.twigpage.Progress;
+import com.flaneurette.twigpage.MyWebViewClient;
 
 public class HomeFragment extends Fragment {
 
@@ -56,25 +57,10 @@ public class HomeFragment extends Fragment {
         webView.addJavascriptInterface(new Progress(root.getContext()), "AndroidProgress");
         webView.addJavascriptInterface(new Device(root.getContext()), "AndroidDevice");
         webView.loadUrl(website);
-
+        MyWebViewClient webviewclient = new MyWebViewClient();
+        webviewclient.setOriginal(original);
+        boolean overload = webviewclient.shouldOverrideUrlLoading;
         return rootView;
-    }
-
-    private class MyWebViewClient extends WebViewClient {
-
-        public int status(WebView view, WebResourceRequest request) {
-            return status;
-        }
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            if (original.equals(request.getUrl().getHost())) {
-                return false;
-            }
-            Intent intent = new Intent(Intent.ACTION_VIEW, request.getUrl());
-            startActivity(intent);
-            return true;
-        }
     }
 
     @Override
