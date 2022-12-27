@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -48,6 +49,9 @@ public class DashboardFragment extends Fragment {
         webviewclient.setOriginal(original);
         boolean overload = webviewclient.shouldOverrideUrlLoading;
 
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+
         WebSettings webSettings = webView.getSettings();
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
@@ -60,6 +64,7 @@ public class DashboardFragment extends Fragment {
         webView.addJavascriptInterface(new Toaster(root.getContext()), "Android");
         webView.addJavascriptInterface(new Progress(root.getContext()), "AndroidProgress");
         webView.addJavascriptInterface(new Device(root.getContext()), "AndroidDevice");
+        webSettings.setSaveFormData(true);
         webView.loadUrl(website);
 
         return rootView;

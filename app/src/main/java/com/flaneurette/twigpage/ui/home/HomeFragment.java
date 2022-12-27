@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,9 @@ public class HomeFragment extends Fragment {
         WebView webView = (WebView) rootView.findViewById(R.id.webView);
         WebSettings webSettings = webView.getSettings();
 
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
@@ -56,7 +60,9 @@ public class HomeFragment extends Fragment {
         webView.addJavascriptInterface(new Toaster(root.getContext()), "Android");
         webView.addJavascriptInterface(new Progress(root.getContext()), "AndroidProgress");
         webView.addJavascriptInterface(new Device(root.getContext()), "AndroidDevice");
+        webSettings.setSaveFormData(true);
         webView.loadUrl(website);
+
         MyWebViewClient webviewclient = new MyWebViewClient();
         webviewclient.setOriginal(original);
         boolean overload = webviewclient.shouldOverrideUrlLoading;
