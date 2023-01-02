@@ -22,4 +22,10 @@
         android:name="com.flaneurette.twigpage.ui.notifications.NotificationsFragment"
         android:label="Mentions"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.flaneurette.twigpage.ui.chat.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat" />
 </navigation>
