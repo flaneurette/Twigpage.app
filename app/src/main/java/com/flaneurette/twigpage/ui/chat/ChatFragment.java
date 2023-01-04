@@ -1,8 +1,13 @@
 package com.flaneurette.twigpage.ui.chat;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +20,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.flaneurette.twigpage.Device;
+import com.flaneurette.twigpage.MainActivity;
 import com.flaneurette.twigpage.MyWebViewClient;
 import com.flaneurette.twigpage.Progress;
 import com.flaneurette.twigpage.R;
@@ -33,6 +41,7 @@ public class ChatFragment extends Fragment {
     private ValueCallback<Uri[]> mFilePathCallback;
     public int status;
     public boolean overload;
+    public Message message;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,9 +71,9 @@ public class ChatFragment extends Fragment {
         webView.addJavascriptInterface(new Toaster(root.getContext()), "Android");
         webView.addJavascriptInterface(new Progress(root.getContext()), "AndroidProgress");
         webView.addJavascriptInterface(new Device(root.getContext()), "AndroidDevice");
+        webView.addJavascriptInterface(new Message(root.getContext()), "AndroidChat");
         webSettings.setSaveFormData(true);
         webView.loadUrl(website);
-
         return rootView;
 
     }

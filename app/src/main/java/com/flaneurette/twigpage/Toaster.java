@@ -3,7 +3,6 @@ package com.flaneurette.twigpage;
 import android.content.Context;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
-import com.flaneurette.twigpage.MyWebViewClient;
 
 /** The Toaster is called from twigpage.com, inside main.js which triggers a Android dialog */
 
