@@ -18,7 +18,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import com.flaneurette.twigpage.Toaster;
@@ -31,7 +30,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private WebView webview;
     private static final int INPUT_FILE_REQUEST_CODE = 1;
-    private static final String website = "https://www.twigpage.com/profile";
+    private static final String website = "https://www.twigpage.com/profile/?mobile=true";
     private static final String original = "www.twigpage.com";
     private ValueCallback<Uri[]> mFilePathCallback;
     public int status;

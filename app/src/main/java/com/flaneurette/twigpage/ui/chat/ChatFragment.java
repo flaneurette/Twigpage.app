@@ -36,7 +36,7 @@ public class ChatFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
     private static final int INPUT_FILE_REQUEST_CODE = 1;
-    private static final String website = "https://www.twigpage.com/messenger/";
+    private static final String website = "https://www.twigpage.com/messenger/?mobile=true";
     private static final String original = "www.twigpage.com";
     private ValueCallback<Uri[]> mFilePathCallback;
     public int status;
@@ -71,7 +71,7 @@ public class ChatFragment extends Fragment {
         webView.addJavascriptInterface(new Toaster(root.getContext()), "Android");
         webView.addJavascriptInterface(new Progress(root.getContext()), "AndroidProgress");
         webView.addJavascriptInterface(new Device(root.getContext()), "AndroidDevice");
-        webView.addJavascriptInterface(new Message(root.getContext()), "AndroidChat");
+        /* webView.addJavascriptInterface(new Message(root.getContext()), "AndroidChat"); */
         webSettings.setSaveFormData(true);
         webView.loadUrl(website);
         return rootView;
