@@ -2,12 +2,6 @@
 
 A simple fragments WebView app for twigpage.com. It loads a website inside a app. File upload is enabled, as well as JavaScript access.
 
-# Download
-
-Scan QR code on mobile phone, and "allow installation from unknown sources." (developer options)
-
-<img src="https://github.com/flaneurette/Twigpage.app/blob/master/frame.png" />
-
 # JavaScript interface
 
 On twigpage.com,call the JavaScript interface inside the app to trigger Java functions. A few examples:
